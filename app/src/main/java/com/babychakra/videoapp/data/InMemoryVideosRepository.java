@@ -5,6 +5,7 @@ import android.support.annotation.VisibleForTesting;
 
 import com.google.common.collect.ImmutableList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -22,7 +23,7 @@ public class InMemoryVideosRepository implements VideosRepository {
      * package.
      */
     @VisibleForTesting
-    List<Video> mCachedVideos;
+    ArrayList<String> mCachedVideoIds;
 
     public InMemoryVideosRepository(@NonNull VideosServiceAPI videosServiceAPI) {
         mVideosServiceAPI = checkNotNull(videosServiceAPI);
@@ -33,16 +34,16 @@ public class InMemoryVideosRepository implements VideosRepository {
         checkNotNull(callback);
 
         //Load from API only if Needed.
-        if(mCachedVideos ==  null) {
-            mVideosServiceAPI.getAllVideos(new VideosServiceAPI.VideosServiceCallback<List<Video>>() {
+        if(mCachedVideoIds ==  null) {
+            mVideosServiceAPI.getAllVideos(new VideosServiceAPI.VideosServiceCallback<ArrayList<String>>() {
                 @Override
-                public void onLoaded(List<Video> videos) {
-                    mCachedVideos = ImmutableList.copyOf(videos);
-                    callback.onVideosLoaded(mCachedVideos);
+                public void onLoaded(ArrayList<String> videos) {
+                    mCachedVideoIds = videos;
+                    callback.onVideosLoaded(mCachedVideoIds);
                 }
             });
         } else {
-            callback.onVideosLoaded(mCachedVideos);
+            callback.onVideosLoaded(mCachedVideoIds);
         }
 
     }

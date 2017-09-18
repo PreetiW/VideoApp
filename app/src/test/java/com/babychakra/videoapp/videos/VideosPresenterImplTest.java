@@ -1,6 +1,5 @@
 package com.babychakra.videoapp.videos;
 
-import com.babychakra.videoapp.data.Video;
 import com.babychakra.videoapp.data.VideosRepository;
 import com.google.common.collect.Lists;
 

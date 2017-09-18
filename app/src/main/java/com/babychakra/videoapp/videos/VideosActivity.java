@@ -1,20 +1,17 @@
 package com.babychakra.videoapp.videos;
 
-import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
-import android.widget.VideoView;
 
 import com.babychakra.videoapp.Injection;
 import com.babychakra.videoapp.R;
-import com.babychakra.videoapp.data.Video;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
-import com.google.api.services.youtube.YouTube;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -22,6 +19,7 @@ import butterknife.ButterKnife;
 
 public class VideosActivity extends YouTubeBaseActivity implements  VideosContract.View, YouTubePlayer.OnInitializedListener {
 
+    private static final String TAG = "VideosActivity+";
     private VideosContract.UserActionsListener videosPresenter;
     @BindView(R.id.youtube_video)
     YouTubePlayerView youtubeVideo;
@@ -52,14 +50,14 @@ public class VideosActivity extends YouTubeBaseActivity implements  VideosContra
     }
 
     @Override
-    public void showVideos(List<Video> videos) {
-
+    public void showVideos(ArrayList<String> videosIds) {
+        Log.d(TAG, videosIds.toString());
     }
 
     @Override
     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean wasRestored) {
         if(!wasRestored){
-            youTubePlayer.cueVideo("tua4SVV-GSE");
+            youTubePlayer.cueVideo("PbIjuqd4ENY");
         }
     }
 

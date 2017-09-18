@@ -1,5 +1,6 @@
 package com.babychakra.videoapp.data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,5 +14,5 @@ public interface VideosServiceAPI {
         void onLoaded(T videos);
     }
 
-    void getAllVideos(VideosServiceCallback<List<Video>> callback);
+    void getAllVideos(VideosServiceCallback<ArrayList<String>> callback);
 }

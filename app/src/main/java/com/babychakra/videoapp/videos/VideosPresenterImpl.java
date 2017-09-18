@@ -2,10 +2,10 @@ package com.babychakra.videoapp.videos;
 
 import android.support.annotation.NonNull;
 
-import com.babychakra.videoapp.data.Video;
 import com.babychakra.videoapp.data.VideosRepository;
 import com.babychakra.videoapp.util.EspressoIdlingResource;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -42,7 +42,7 @@ public class VideosPresenterImpl implements VideosContract.UserActionsListener {
         mVideosRepository.getVideos(new VideosRepository.LoadVideosCallback() {
 
             @Override
-            public void onVideosLoaded(List<Video> videos) {
+            public void onVideosLoaded(ArrayList<String> videos) {
 
                 EspressoIdlingResource.decrement();
                 mVideosView.setProgressIndicator(false);

@@ -1,7 +1,6 @@
 package com.babychakra.videoapp.videos;
 
-import com.babychakra.videoapp.data.Video;
-
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,7 +13,7 @@ public interface VideosContract {
 
         void setProgressIndicator(boolean active);
 
-        void showVideos(List<Video> videos);
+        void showVideos(ArrayList<String> videos);
 
     }
 

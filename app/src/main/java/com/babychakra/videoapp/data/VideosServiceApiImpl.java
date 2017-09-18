@@ -8,6 +8,7 @@ import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.PlaylistListResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,11 +23,12 @@ public class VideosServiceApiImpl implements VideosServiceAPI {
     private final HttpTransport mTransport = AndroidHttp.newCompatibleTransport();
 
     @Override
-    public void getAllVideos(VideosServiceCallback<List<Video>> callback) {
+    public void getAllVideos(final VideosServiceCallback<ArrayList<String>> callback) {
 
         mYoutubeDataApi = new YouTube.Builder(mTransport, mJsonFactory, null)
                 .setApplicationName("Youtubeapp")
                 .build();
+
         String[] ids = {"PLRBp0Fe2GpgnZOm5rCopMAOYhZCPoUyO5"};
 
         new GetPlaylistDataAsyncTask(mYoutubeDataApi) {
@@ -37,10 +39,10 @@ public class VideosServiceApiImpl implements VideosServiceAPI {
             }
 
             @Override
-            protected void onPostExecute(PlaylistListResponse playlistListResponse) {
-                super.onPostExecute(playlistListResponse);
-                //Here we get the playlist data
-                Log.d(TAG, playlistListResponse.getItems().toString());
+            protected void onPostExecute(ArrayList<String> videoIds) {
+                super.onPostExecute(videoIds);
+                callback.onLoaded(videoIds);
+
             }
         }.execute(ids);
 
