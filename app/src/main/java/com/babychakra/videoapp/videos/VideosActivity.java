@@ -1,6 +1,8 @@
 package com.babychakra.videoapp.videos;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -17,12 +19,15 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class VideosActivity extends YouTubeBaseActivity implements  VideosContract.View, YouTubePlayer.OnInitializedListener {
+public class VideosActivity extends YouTubeBaseActivity implements  VideosContract.View {
 
-    private static final String TAG = "VideosActivity+";
+    private static final String TAG = "VideosActivity";
     private VideosContract.UserActionsListener videosPresenter;
-    @BindView(R.id.youtube_video)
-    YouTubePlayerView youtubeVideo;
+
+    @BindView(R.id.video_recylerview)
+    RecyclerView videRecyclerview;
+
+    private VideosAdapter videosAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +38,17 @@ public class VideosActivity extends YouTubeBaseActivity implements  VideosContra
 
     private void init() {
         ButterKnife.bind(this);
+        ArrayList<String> videos = new ArrayList<>();
+        videos.add("PbIjuqd4ENY");
+        videos.add("PbIjuqd4ENY");
+        videos.add("PbIjuqd4ENY");
+        videos.add("PbIjuqd4ENY");
         videosPresenter = new VideosPresenterImpl(Injection.provideVideosRepository() ,this);
-        youtubeVideo.initialize("AIzaSyBJeFxvSLNcD3k8DDuUIYtWAy_QfguGF2w", this);
+
+        videosAdapter = new VideosAdapter(videos);
+        videRecyclerview.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL, false));
+        videRecyclerview.setAdapter(videosAdapter);
+
     }
 
     @Override
@@ -54,15 +68,4 @@ public class VideosActivity extends YouTubeBaseActivity implements  VideosContra
         Log.d(TAG, videosIds.toString());
     }
 
-    @Override
-    public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean wasRestored) {
-        if(!wasRestored){
-            youTubePlayer.cueVideo("PbIjuqd4ENY");
-        }
-    }
-
-    @Override
-    public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-
-    }
 }

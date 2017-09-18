@@ -40,6 +40,20 @@ public class VideosAdapter extends RecyclerView.Adapter<VideosAdapter.ViewHolder
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
+        holder.youtubeVideo.initialize("AIzaSyBJeFxvSLNcD3k8DDuUIYtWAy_QfguGF2w", new YouTubePlayer.OnInitializedListener() {
+            @Override
+            public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean wasRestored) {
+                if(!wasRestored){
+                    youTubePlayer.loadVideo("PbIjuqd4ENY");
+                }
+            }
+
+            @Override
+            public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
+
+            }
+        });
+
     }
 
     @Override
